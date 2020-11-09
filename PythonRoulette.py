@@ -11,27 +11,27 @@ class roulette:
 
     def __init__(self, betType=None, rouletteStyle=None, bankAccount=None, rollNumber=None, rollHistory=None, colorHistory=None):
         #   Set the defualts
-        if betType is None:
+        if betType == None:
             self.betType = 'Straight'
         else:
             self.betType = betType
-        if rouletteStyle is None:
+        if rouletteStyle == None:
             self.rouletteStyle = 'American'
         else:
             self.rouletteStyle = rouletteStyle
-        if bankAccount is None:
+        if bankAccount == None:
             self.bankAccount = 10000.0
         else:
             self.bankAccount = float(bankAccount)
-        if rollNumber is None:
+        if rollNumber == None:
             self.rollNumber = 0
         else:
             self.rollNumber = int(rollNumber)
-        if rollHistory is None:
+        if rollHistory == None:
             self.rollHistory = []
         else:
             self.rollHistory = rollHistory    
-        if colorHistory is None:
+        if colorHistory == None:
             self.colorHistory = []
         else:
             self.colorHistory = colorHistory
@@ -63,7 +63,7 @@ class roulette:
     def rollTheRouletteWheel(self):
         print('--- Spinning the '+self.rouletteStyle+' roullete wheel ---')
         #   the picked bet must be an interger between -1 and 36
-        if self.rouletteStyle is 'American':        
+        if self.rouletteStyle == 'American':
             theRoll = random.randint(-1,36)
         else:
             theRoll = random.randint(0,36)
@@ -80,7 +80,7 @@ class roulette:
         for i in betPick:
             if int(i) < betMin or int(i) > betMax:
                 print('Error: '+str(i)+' is an invalid bet')
-                if self.rouletteStyle is 'American':
+                if self.rouletteStyle == 'American':
                     print('Please roll again with a bet between -1 and 36. American roulette has 38 diferent possible numbers, where 00 is represented as -1')
                 else:
                     print('Please roll again with a bet between -1 and 36. American roulette has 38 diferent possible numbers, where 00 is represented as -1')
@@ -88,23 +88,23 @@ class roulette:
         return(True)        
         
     def roll(self, betAmmount, betPick=None):
-        if betPick is None:
+        if betPick == None:
             self.betPick = None
         else:
             self.betPick = betPick
         #   Check to see if the bet ammount is valid, if not break
-        if float(betAmmount) <= 0.0:
+        if float(betAmmount) < 0.0:
             print('Error: You have bet an incorrect ammount. All bets must be greater than 0.0')
             return()
-        
+
         #   Check to see if there is enough money in the bank account
         if self.bankAccount - betAmmount < 0.0:
             print('Error: You do not have enough money in your bank account to bet this much.')
             return()
 
         #   beggin the Straight roulette bet and game type
-        if self.betType is 'Straight':
-            if self.rouletteStyle is 'American':
+        if self.betType == 'Straight':
+            if self.rouletteStyle == 'American':
                 #   the picked bet must be an interger between -1 and 36
                 if int(betPick) < -1 or int(betPick) > 36:
                     print('Error: You have picked an incorrect bet, please roll again with a bet between -1 and 36. American roulette has 38 diferent possible numbers, where 00 is represented as -1')
@@ -127,7 +127,7 @@ class roulette:
                         print('Your bet of '+str(betAmmount)+' has been removed from your account')
                         print('Your new account balance is '+str(self.bankAccount))
                         print('--- End of Roll, Please roll again! ---')
-            elif self.rouletteStyle is 'French':
+            elif self.rouletteStyle == 'French':
                 #   the picked bet must be an interger between 0 and 36
                 if int(betPick) < 0 or int(betPick) > 36:
                     print('Error: You have picked an incorrect bet, please roll again with a bet between 0 and 36. French roulette has 37 diferent possible numbers, bets can be from 0 to 36')
@@ -156,13 +156,13 @@ class roulette:
                 print('The possible roulette styles are American or French')
                 print('EX: Set roulette style to American by roulette.(rouletteStyle="American")')
         #   Begin a color choice game
-        elif self.betType is 'Color':
-            if betPick is 'Red' or betPick is 'Black':
+        elif self.betType == 'Color':
+            if betPick == 'Red' or betPick == 'Black':
 
                 theRoll = self.rollTheRouletteWheel()
                 print('You bet the ball would land on '+betPick)
 
-                if self.colorHistory[-1] is betPick:
+                if self.colorHistory[-1] == betPick:
                     print('**** !!! You have won !!! ***')
                     print('The payout is 1 to 1')
                     payout = 1.0*float(betAmmount)
@@ -180,9 +180,9 @@ class roulette:
                 print('Error: You have picked an incorrect color. Acceptable colors are Red and Black.')
                 return()
         #   Begin a row betting game
-        elif self.betType is 'Row':
+        elif self.betType == 'Row':
             #   A row bet is a bet on 0 or 00
-            if self.rouletteStyle is 'American':
+            if self.rouletteStyle == 'American':
                 theRoll = self.rollTheRouletteWheel()
                 print('You bet "Row", that ball would land on 0, or 00')
 
@@ -204,11 +204,11 @@ class roulette:
                 print('Sorry row betting is only allowed on the American roulette wheel. Please set the roullete style to American by roulette.(rouletteStyle="American")')
                 return()
         #   Begin a split betting game, where you can pick any two numbers
-        elif self.betType is 'Split':
+        elif self.betType == 'Split':
             if np.size(betPick) == 1 or np.size(betPick) > 2:
                 print('Error: With the split betting game you can pick any two roulette numbers. Please supply a list of two different intergers.')
                 return()
-            if self.rouletteStyle is 'American':
+            if self.rouletteStyle == 'American':
                 #   the picked bet must be an interger between -1 and 36
                 if int(betPick[0]) < -1 or int(betPick[0]) > 36:
                     print('Error: You have picked an incorrect bet for your first number, please roll again with a bet between -1 and 36. American roulette has 38 diferent possible numbers, where 00 is represented as -1')
@@ -234,7 +234,7 @@ class roulette:
                         print('Your bet of '+str(betAmmount)+' has been removed from your account')
                         print('Your new account balance is '+str(self.bankAccount))
                         print('--- End of Roll, Please roll again! ---')
-            elif self.rouletteStyle is 'French':
+            elif self.rouletteStyle == 'French':
                 #   the picked bet must be an interger between 0 and 36
                 if int(betPick[0]) < 0 or int(betPick[0]) > 36:
                     print('Error: You have picked an incorrect bet for your first number, please roll again with a bet between 0 and 36. French roulette has 37 diferent possible numbers, bets can be from 0 to 36')
@@ -261,11 +261,11 @@ class roulette:
                         print('Your new account balance is '+str(self.bankAccount))
                         print('--- End of Roll, Please roll again! ---')
         #   Begin a street betting game, where you can pick any three numbers
-        elif self.betType is 'Street':
+        elif self.betType == 'Street':
             if np.size(betPick) <= 2 or np.size(betPick) > 3:
                 print('Error: With the street betting game you can pick any three roulette numbers. Please supply a list of three different intergers.')
                 return()
-            if self.rouletteStyle is 'American':
+            if self.rouletteStyle == 'American':
                 #   the picked bet must be an interger between -1 and 36
                 if int(betPick[0]) < -1 or int(betPick[0]) > 36:
                     print('Error: You have picked an incorrect bet for your first number, please roll again with a bet between -1 and 36. American roulette has 38 diferent possible numbers, where 00 is represented as -1')
@@ -294,7 +294,7 @@ class roulette:
                         print('Your bet of '+str(betAmmount)+' has been removed from your account')
                         print('Your new account balance is '+str(self.bankAccount))
                         print('--- End of Roll, Please roll again! ---')
-            elif self.rouletteStyle is 'French':
+            elif self.rouletteStyle == 'French':
                 #   the picked bet must be an interger between 0 and 36
                 if int(betPick[0]) < 0 or int(betPick[0]) > 36:
                     print('Error: You have picked an incorrect bet for your first number, please roll again with a bet between 0 and 36. French roulette has 37 diferent possible numbers, bets can be from 0 to 36')
@@ -329,11 +329,11 @@ class roulette:
                 print('The possible roulette styles are American or French')
                 print('EX: Set roulette style to American by roulette.(rouletteStyle="American")')
         #   Begin a Corner betting game, where you can pick any four numbers
-        elif self.betType is 'Corner':
+        elif self.betType == 'Corner':
             if np.size(betPick) <= 3 or np.size(betPick) > 4:
                 print('Error: With the corner betting game you can pick any four roulette numbers. Please supply a list of four different intergers.')
                 return()
-            if self.rouletteStyle is 'American':
+            if self.rouletteStyle == 'American':
                 #   the picked bet must be an interger between -1 and 36
                 if int(betPick[0]) < -1 or int(betPick[0]) > 36:
                     print('Error: You have picked an incorrect bet for your first number, please roll again with a bet between -1 and 36. American roulette has 38 diferent possible numbers, where 00 is represented as -1')
@@ -365,7 +365,7 @@ class roulette:
                         print('Your bet of '+str(betAmmount)+' has been removed from your account')
                         print('Your new account balance is '+str(self.bankAccount))
                         print('--- End of Roll, Please roll again! ---')
-            elif self.rouletteStyle is 'French':
+            elif self.rouletteStyle == 'French':
                 #   the picked bet must be an interger between 0 and 36
                 if int(betPick[0]) < 0 or int(betPick[0]) > 36:
                     print('Error: You have picked an incorrect bet for your first number, please roll again with a bet between 0 and 36. French roulette has 37 diferent possible numbers, bets can be from 0 to 36')
@@ -403,14 +403,14 @@ class roulette:
                 print('The possible roulette styles are American or French')
                 print('EX: Set roulette style to American by roulette.(rouletteStyle="American")')        
         #   Begin a line betting game, where you can pick any four numbers
-        elif self.betType is 'Line':
+        elif self.betType == 'Line':
             if np.size(betPick) <= 5 or np.size(betPick) > 6:
                 print('Error: With the line betting game you can pick any six roulette numbers. Please supply a list of six different intergers.')
                 return()
             validBets = False
-            if self.rouletteStyle is 'American':
+            if self.rouletteStyle == 'American':
                 validBets = self.checkBets(betPick, -1)
-            elif self.rouletteStyle is 'French':
+            elif self.rouletteStyle == 'French':
                 validBets = self.checkBets(betPick, 0)
             #   you have chosen an incorrect roulette style
             else:
@@ -419,7 +419,7 @@ class roulette:
                 print('EX: Set roulette style to American by roulette.(rouletteStyle="American")')
                 return()  
             #   let the roll begin
-            if validBets is True:
+            if validBets == True:
                 theRoll = self.rollTheRouletteWheel()
                 print('You bet the ball would land on '+str(betPick))
 
@@ -438,14 +438,14 @@ class roulette:
                     print('Your new account balance is '+str(self.bankAccount))
                     print('--- End of Roll, Please roll again! ---')
         #   Begin a dozen betting game, where you can pick any 12 numbers
-        elif self.betType is 'Dozen':
+        elif self.betType == 'Dozen':
             if np.size(betPick) <= 11 or np.size(betPick) > 12:
                 print('Error: With the Dozen betting game you can pick any 12 roulette numbers. Please supply a list of 12 different intergers.')
                 return()
             validBets = False
-            if self.rouletteStyle is 'American':
+            if self.rouletteStyle == 'American':
                 validBets = self.checkBets(betPick, -1)
-            elif self.rouletteStyle is 'French':
+            elif self.rouletteStyle == 'French':
                 validBets = self.checkBets(betPick, 0)
             #   you have chosen an incorrect roulette style
             else:
@@ -454,7 +454,7 @@ class roulette:
                 print('EX: Set roulette style to American by roulette.(rouletteStyle="American")')
                 return()  
             #   let the roll begin
-            if validBets is True:
+            if validBets == True:
                 theRoll = self.rollTheRouletteWheel()
                 print('You bet the ball would land on '+str(betPick))
 
@@ -474,14 +474,14 @@ class roulette:
                     print('--- End of Roll, Please roll again! ---')
        
         #   Begin a dozen betting game, where you can pick any 12 numbers
-        elif self.betType is 'Penta':
+        elif self.betType == 'Penta':
             if np.size(betPick) <= 4 or np.size(betPick) > 5:
                 print('Error: With the Penta betting game you can pick any 5 roulette numbers. Please supply a list of 5 different intergers.')
                 return()
             validBets = False
-            if self.rouletteStyle is 'American':
+            if self.rouletteStyle == 'American':
                 validBets = self.checkBets(betPick, -1)
-            elif self.rouletteStyle is 'French':
+            elif self.rouletteStyle == 'French':
                 validBets = self.checkBets(betPick, 0)
             #   you have chosen an incorrect roulette style
             else:
@@ -490,7 +490,7 @@ class roulette:
                 print('EX: Set roulette style to American by roulette.(rouletteStyle="American")')
                 return()  
             #   let the roll begin
-            if validBets is True:
+            if validBets == True:
                 theRoll = self.rollTheRouletteWheel()
                 print('You bet the ball would land on '+str(betPick))
 
@@ -510,13 +510,13 @@ class roulette:
                     print('--- End of Roll, Please roll again! ---')
         
         #   Begin an even or odd choice game
-        elif self.betType is 'EvenOdd':
-            if betPick is 'Odd' or betPick is 'Even':
+        elif self.betType == 'EvenOdd':
+            if betPick == 'Odd' or betPick == 'Even':
                 theRoll = self.rollTheRouletteWheel()
                 oddOrEvenTruth = self.determineIfOddOrEven(theRoll)
                 print('You bet the ball would land on '+betPick)
 
-                if oddOrEvenTruth is betPick:
+                if oddOrEvenTruth == betPick:
                     print('**** !!! You have won !!! ***')
                     print('The payout is 1 to 1')
                     payout = 1.0*float(betAmmount)
@@ -535,11 +535,11 @@ class roulette:
                 return()
                 
         #   Begin a multi bet Straight game
-        elif self.betType is 'MultiStraight':
+        elif self.betType == 'MultiStraight':
             validBets = False
-            if self.rouletteStyle is 'American':
+            if self.rouletteStyle == 'American':
                 validBets = self.checkBets(betPick, -1)
-            elif self.rouletteStyle is 'French':
+            elif self.rouletteStyle == 'French':
                 validBets = self.checkBets(betPick, 0)
             #   you have chosen an incorrect roulette style
             else:
@@ -549,7 +549,7 @@ class roulette:
                 return()  
             
             #   let the roll begin
-            if validBets is True:
+            if validBets == True:
                 theRoll = self.rollTheRouletteWheel()
                 print('You bet the ball would land on '+str(betPick))
 
