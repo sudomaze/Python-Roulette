@@ -1,4 +1,10 @@
 # let's play roulette
+import signal
+import sys
+
+def signal_handler(sig, frame):
+    print('You pressed Ctrl+C!')
+    sys.exit(0)
 import PythonRoulette
 from importlib import reload
 reload(PythonRoulette)
@@ -79,3 +85,6 @@ while current_step < end_trial and index < len(betting_stages):
         play.roll(0, value)
     current_step = current_step + 1
 print(f'play.bankAccount = {play.bankAccount}, current_step = {current_step}')
+signal.signal(signal.SIGINT, signal_handler)
+print('Press Ctrl+C')
+signal.pause()
